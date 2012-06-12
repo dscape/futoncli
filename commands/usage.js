@@ -27,7 +27,9 @@ module.exports = [
   '',
   '  futon <resource> <action> <param1> <param2> ...',
   '',
-  'Common Commands:'.cyan.bold.underline,
+  'More help:'.cyan.bold.underline,
   '',
-  '  futon config (e.g. to set your couchdb endpoint)'
+  '  futon config',
+  '  futon document',
+  '  futon design'
 ];
