@@ -51,7 +51,7 @@ futoncli.use(require('flatiron-cli-config'), {
       var display = [
         'Here is your ' + configFile.grey + ' file:',
         'If you\'d like to change a property try:',
-        'futoncli config set <key> <value>'
+        'futon config set <key> <value>'
       ];
 
       display.forEach(function (line) {
