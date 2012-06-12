@@ -1,0 +1,18 @@
+{ "name"            : "futoncli"
+, "description"     : "command line futon"
+, "homepage"        : "http://github.com/dscape/futoncli"
+, "repository"      : "git://github.com/dscape/futoncli"
+, "version"         : "0.0.1"
+, "author"          : "Nuno Job <nunojobpinto@gmail.com> (http://nunojob.com)"
+, "keywords"        :
+  ["couchdb", "data", "request", "json", "nosql", "micro", "nano", "database"]
+, "dependencies"    :
+  { "nano"                : "3.0.x"
+  , "flatiron"            : "0.2.x"
+  , "colors"              : "0.6.x"
+  , "flatiron-cli-config" : "0.1.x"
+  , "pkginfo"             : "0.2.x"
+  }
+, "main"            : "./futoncli.js"
+, "engines"         : { "node": ">=0.3.6" }
+}
