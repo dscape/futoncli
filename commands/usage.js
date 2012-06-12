@@ -25,9 +25,9 @@ module.exports = [
   '',
   'Usage:'.cyan.bold.underline,
   '',
-  '  futoncli <resource> <action> <param1> <param2> ...',
+  '  futon <resource> <action> <param1> <param2> ...',
   '',
   'Common Commands:'.cyan.bold.underline,
   '',
-  '  futoncli config (e.g. to set your couchdb endpoint)'
+  '  futon config (e.g. to set your couchdb endpoint)'
 ];

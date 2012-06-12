@@ -1,4 +1,4 @@
-{ "name"            : "futoncli"
+{ "name"            : "futon"
 , "description"     : "command line futon"
 , "homepage"        : "http://github.com/dscape/futoncli"
 , "repository"      : "git://github.com/dscape/futoncli"

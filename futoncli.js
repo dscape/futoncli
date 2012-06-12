@@ -17,12 +17,11 @@ futoncli.use(flatiron.plugins.cli, {
   argv: {
     version: {
       alias: 'v',
-      description: 'print futoncli version and exit',
+      description: 'print futon version and exit',
       string: true
     }
   }
 });
-
 
 futoncli.started           = false;
 futoncli.commands          = require('./commands');
@@ -36,10 +35,10 @@ futoncli.prompt.properties = flatiron.common.mixin(
       "warning": 'Must respond yes or no',
       "default": 'no'
     },
-    "server": {
-      "name": "server",
+    "endpoint": {
+      "name": "endpoint",
       "message": "CouchDB",
-      "default": "http://localhost:5984"
+      "default": "http://localhost:5984/dbname"
     }
   }
 );
@@ -48,7 +47,7 @@ require('./config');
 require('./aliases');
 
 futoncli.welcome = function () {
-  futoncli.log.info('Welcome to ' + 'futoncli'.grey);
+  futoncli.log.info('Welcome to ' + 'futon'.grey);
   futoncli.log.info('It worked if it ends with ' + 'futoncli'.grey + ' ok'.green.bold);
 };
 
@@ -62,19 +61,19 @@ futoncli.start = function (callback) {
 
     futoncli.welcome();
 
-    var server = futoncli.config.get('server');
-    if (!server) {
-      return futoncli.prompt.get(["server"], function (err, stdin) {
+    var endpoint = futoncli.config.get('endpoint');
+    if (!endpoint) {
+      return futoncli.prompt.get(["endpoint"], function (err, stdin) {
         if (err) {
           callback(err);
           return futoncli.showError.apply(
             futoncli, [futoncli.argv._[0]].concat(arguments));
         }
 
-       if(typeof stdin.server === "string" &&
-          /^https*:\/\//.test(stdin.server)) {
-         var server = stdin.server;
-         futoncli.config.set('server', server);
+       if(typeof stdin.endpoint === "string" &&
+          /^https*:\/\//.test(stdin.endpoint)) {
+         var endpoint = stdin.endpoint;
+         futoncli.config.set('endpoint', endpoint);
          futoncli.config.save(function (err) {
            if (err) {
              callback(err);
@@ -82,11 +81,11 @@ futoncli.start = function (callback) {
                futoncli, [futoncli.argv._[0]].concat(err));
            }
 
-           futoncli.log.info('Configured server ' + server.magenta);
+           futoncli.log.info('Configured endpoint ' + endpoint.magenta);
            return futoncli.exec(futoncli.argv._, callback);
          });
        } else {
-         err = new Error("Bad URL. Try http://localhost:5984");
+         err = new Error("Bad URL. Try http://localhost:5984/dbname");
          callback(err);
          return futoncli.showError.apply(
            futoncli, [futoncli.argv._[0]].concat(err));
@@ -123,7 +122,27 @@ futoncli.setup = function (callback) {
     return callback();
   }
 
-  futoncli.nano = require('nano')(futoncli.config.get('server'));
+  var endpoint = futoncli.config.get('endpoint');
+
+  futoncli.db = require('nano')(futoncli.config.get('endpoint'));
+
+  if(!futoncli.db.attachment) {
+    // it would be idea to support admin functions too, like creating
+    // databases and stuff
+    //
+    // but this is it for now
+    // pull requests are welcome
+    var err = futoncli.db.db 
+            ? new Error("You CouchDB endpoint doesn't seem to be a db " +
+                        endpoint + ". Update your " +
+                        " config with futon config set endpoint " +
+                        " http://localhost:5984/sampledb")
+            : new Error("Your CouchDB Endpoint seems invalid " + endpoint);
+    callback(err);
+     return futoncli.showError.apply(
+       futoncli, ['setup'].concat(err));
+  }
+
   futoncli.started = true;
 
   callback();
@@ -132,80 +151,18 @@ futoncli.setup = function (callback) {
 futoncli.showError = function (command, err, shallow, skip) {
   var stack;
 
-  if (err.statusCode === '403') {
-    futoncli.log.error('403 ' + err.result.error);    
-  }
-  else if (!skip) {
-    futoncli.log.error('Error running command ' + command.magenta);
-    
-    if (err.message) {
-      futoncli.log.error(err.message);
-    }
+  futoncli.log.error('Error running command ' + command.magenta);
 
-    if (err.result) {
-      if (err.result.error) {
-        futoncli.log.error(err.result.error);
-      }
-
-      if (err.result.result && err.result.result.error) {
-        if (err.result.result.error.stderr || err.result.result.error.stdout) {
-          futoncli.log.error('');
-          futoncli.log.error('There was an error while attempting to start your application.');
-          futoncli.log.error(err.result.result.error.message);
-          if (err.result.result.error.blame) {
-            futoncli.log.error(err.result.result.error.blame.message);
-            futoncli.log.error('');
-            futoncli.log.error('This type of error is usually a ' + err.result.result.error.blame.type + ' error.');
-          }
-          
-          futoncli.log.error('Error output from your application:');
-          futoncli.log.error('');
-          if (err.result.result.error.stdout) {
-            err.result.result.error.stdout.split('\n').forEach(function (line) {
-              futoncli.log.error(line);
-            });
-          }
-          
-          if (err.result.result.error.stderr) {
-            err.result.result.error.stderr.split('\n').forEach(function (line) {
-              futoncli.log.error(line);
-            });
-          }
-        }
-        else if (err.result.result.error.stack && futoncli.config.get('debug')) {
-          futoncli.log.error('There was an error while attempting to deploy your application.');
-          futoncli.log.error('');
-          futoncli.log.error(err.result.result.error.message);
-          
-          if (err.result.result.error.blame) {
-            futoncli.log.error(err.result.result.error.blame.message);
-            futoncli.log.error('');
-            futoncli.log.error('This type of error is usually a ' + err.result.result.error.blame.type + ' error.');
-          } 
-          
-          futoncli.log.error('Error output from Haibu:');
-          futoncli.log.error('');
-          stack = err.result.result.error.result || err.result.result.error.stack;
-          stack.split('\n').forEach(function (line) {
-            futoncli.log.error(line);
-          });
-        }
-      }
-      else if (err.result.stack) {
-        futoncli.log.warn('Error returned from Conservatory');
-        err.result.stack.split('\n').forEach(function (line) {
-          futoncli.log.error(line);
-        });
-      }
-    }
-    else {
-      if (err.stack && !shallow) {
-        err.stack.split('\n').forEach(function (trace) {
-          futoncli.log.error(trace);
-        });
-      }
-    }
+  if (err.message) {
+    futoncli.log.error(err.message);
   }
 
-  futoncli.log.info('futoncli '.grey + 'not ok'.red.bold);
+  futoncli.inspect.putObject(err, {
+    password: function (line) {
+      var password = line.match(/password.*\:\s(.*)$/)[1];
+      return line.replace(password, "'********'");
+    }
+  }, 2);
+
+  futoncli.log.info('futon '.grey + 'not ok'.red.bold);
 };

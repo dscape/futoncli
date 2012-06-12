@@ -4,7 +4,7 @@ var futoncli = require('../futoncli');
 
 futoncli.start(function (err) {
   if (!err) {
-    futoncli.log.info('futoncli'.grey + ' ok'.green.bold);
+    futoncli.log.info('futon'.grey + ' ok'.green.bold);
   }
 
   process.stdout.on('drain', function (err) {
