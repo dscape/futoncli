@@ -1,4 +1,4 @@
-var futoncli = require('../futoncli');
+var futoncli = require('./futoncli');
 var helpers = exports;
 
 helpers.parse_args = function (args, require_cb) {

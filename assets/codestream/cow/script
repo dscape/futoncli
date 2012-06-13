@@ -1,0 +1,40 @@
+futon database destroy bar
+npm uninstall -g futon
+rm ~/.futoncliconf
+
+---
+cat cow/1 | cowsay
+ll
+cdir derek.json
+cdir nuno.json
+cdir randal.json
+cdir people.json
+cat cow/1a | cowsay
+npm install futon -g
+futon
+http://localhost:5984/foo
+cat cow/2 | cowsay
+cat ~/.futoncliconf
+cat cow/3 | cowsay
+futon config
+futon config list
+futon config set endpoint http://localhost:5984/bar
+futon config list
+futon database
+futon database create bar
+cat cow/4 | cowsay
+futon document insert p_nuno
+nuno.json
+futon document insert p_derek
+derek.json
+futon document insert p_randall
+randall.json
+futon document list
+cat cow/5 | cowsay
+futon design
+futon document insert _design/people
+people.json
+futon design list
+futon design query people by_name_and_city key=[\"Derek\",\"San\ Francisco\"]
+cat cow/6 | cowsay
+cowsay "http://github.com/dscape/futoncli"

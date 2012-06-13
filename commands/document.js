@@ -71,16 +71,16 @@ document.insert = function (name, callback) {
     if(err) {
       return callback(err);
     }
-    fs.readFile(path.join(__dirname, input.file), function (err, body) {
+    fs.readFile(input.file, function (err, body) {
       if(err) {
         return callback(err);
       }
       try {
         body = JSON.parse(body);
         if(name) {
-          db.insert(body, helpers.generic_cb(callback));
-        } else {
           db.insert(body, name, helpers.generic_cb(callback));
+        } else {
+          db.insert(body, helpers.generic_cb(callback));
         }
       } catch (err2) {
         return callback(err2);
