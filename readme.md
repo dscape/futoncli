@@ -39,6 +39,7 @@ all configuration data for your local `futoncli` install is located in the *.fut
 * make non interactive mode with colors and welcome text. should just output json
 * make `curl http://nuno.com/package.json | futon document insert` work
 * make code less lame, dry it up a bit
+* cdir integration
 
 
 ## tests
