@@ -1,7 +1,6 @@
 futon database destroy bar
 npm uninstall -g futon
 rm ~/.futoncliconf
-
 ---
 cat cow/1 | cowsay
 ll

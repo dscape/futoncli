@@ -2,7 +2,7 @@
 
 *futon on your command line*
 
-!["futoncli"](https://github.com/dscape/futoncli/raw/master/assets/screen.png "futon command line client")
+!["video"](https://github.com/dscape/futoncli/raw/master/assets/play.png "play futon command line client video in codestream")
 
 ## overview
 
@@ -69,8 +69,7 @@ to run tests make sure you npm test but also run tests without mocks:
 
 `(oo)--',-` in [caos][3]
 
-[2]: http://github.com/dscape/futoncli/issues
-[3]: http://caos.di.uminho.pt/
+!["futoncli"](https://github.com/dscape/futoncli/raw/master/assets/screen.png "futon command line client")
 
 ## license
 
@@ -87,3 +86,6 @@ distributed under the license is distributed on an "as is" basis,
 without warranties or conditions of any kind, either express or implied.
 see the license for the specific language governing permissions and
 limitations under the license.
+
+[2]: http://github.com/dscape/futoncli/issues
+[3]: http://caos.di.uminho.pt/
