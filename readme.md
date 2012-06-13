@@ -2,7 +2,7 @@
 
 *futon on your command line*
 
-!["video"](https://github.com/dscape/futoncli/raw/master/assets/play.png "play futon command line client video in codestream")
+<a href="http://codestre.am/4fd7fdf69582b28f1f01c7bf"><img src="https://github.com/dscape/futoncli/raw/master/assets/play.png" alt="play futon command line client video in codestream"></a>
 
 ## overview
 
