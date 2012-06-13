@@ -47,5 +47,7 @@ database.usage = [
   'local futon configuration file. Valid commands are:',
   '',
   'futon database list',
-  'futon database get <dbname>'
+  'futon database get <dbname>',
+  'futon database destroy <dbname>',
+  'futon database create <dbname>'
 ];

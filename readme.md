@@ -1,3 +1,7 @@
+# disclaimer
+
+very early work
+
 # to do
 
 * add support for everything nano does
