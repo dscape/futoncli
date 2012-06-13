@@ -49,7 +49,7 @@ require('./aliases');
 
 futoncli.welcome = function () {
   futoncli.log.info('Welcome to ' + 'futon'.grey);
-  futoncli.log.info('It worked if it ends with ' + 'futoncli'.grey + ' ok'.green.bold);
+  futoncli.log.info('It worked if it ends with ' + 'futon'.grey + ' ok'.green.bold);
 };
 
 futoncli.start = function (callback) {
