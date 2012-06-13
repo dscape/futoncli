@@ -13,6 +13,10 @@
   , "flatiron-cli-config" : "0.1.x"
   , "pkginfo"             : "0.2.x"
   }
+, "devDependencies" :
+  { "request"             : "2.9.202"
+  , "picture-tube"        : "0.0.4"
+  }
 , "main"            : "./futoncli.js"
 , "bin"             : { "futon": "./bin/futon" }
 , "engines"         : { "node": ">=0.4.x" }
