@@ -2,12 +2,10 @@
 
 var PictureTube = require('picture-tube'),
     tube = new PictureTube({ cols: 20 }),
-    fs = require('fs'),
-    request = require('request');
+    fs = require('fs');
 
 var couch,
     futon = [
-      '                           ',
       '                           ',
       '                           ',
       ',---.     |                ',
@@ -18,11 +16,10 @@ var couch,
 
 var buff = [];
 
-request('http://couchdb.apache.org/image/couch.png').pipe(tube);
+fs.createReadStream('./assets/couch.png').pipe(tube);
 
 tube.on('data', function (data) {
   data = data.toString();
-
   buff.push(data.toString());
 });
 

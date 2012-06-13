@@ -4,6 +4,10 @@
 , "repository"      : "git://github.com/dscape/futoncli"
 , "version"         : "0.0.3"
 , "author"          : "Nuno Job <nunojobpinto@gmail.com> (http://nunojob.com)"
+, "contributors"    :
+  [ "Joshua Holbrook (http://jesusabdullah.github.com)"
+  , "Pavan Sunkara (http://pksunkara.github.com)"
+  ]
 , "keywords"        :
   ["couchdb", "data", "request", "json", "nosql", "micro", "nano", "database"]
 , "dependencies"    :
@@ -14,8 +18,8 @@
   , "pkginfo"             : "0.2.x"
   }
 , "devDependencies" :
-  { "request"             : "2.9.202"
-  , "picture-tube"        : "0.0.4"
+  { "request"             : "2.9.x"
+  , "picture-tube"        : "0.0.x"
   }
 , "main"            : "./futoncli.js"
 , "bin"             : { "futon": "./bin/futon" }
