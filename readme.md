@@ -4,9 +4,9 @@
 
 !["futoncli"](https://github.com/dscape/futoncli/raw/master/assets/screen.png "futon command line client")
 
-## Overview
+## overview
 
-[futoncli](https://github.com/dscape/futoncli) is a [Command Line Tool (CLI)](http://en.wikipedia.org/wiki/Command-line_interface) for managing and interacting with [CouchDB](http://couchdb.apache.org). it's open-source and easy to use.
+[futoncli](https://github.com/dscape/futoncli) is a [command line tool](http://en.wikipedia.org/wiki/Command-line_interface) for managing and interacting with [couchdb](http://couchdb.apache.org). it's open-source and easy to use.
 
 `futoncli` requires `npm`, the [node package manager](http://npmjs.org).
 
