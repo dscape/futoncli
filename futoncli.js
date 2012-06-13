@@ -1,5 +1,6 @@
 var path = require('path'),
     nano = require('nano'),
+    url = require('url'),
     flatiron = require('flatiron');
 
 var futoncli = module.exports = new flatiron.App({
@@ -124,7 +125,14 @@ futoncli.setup = function (callback) {
 
   var endpoint = futoncli.config.get('endpoint');
 
-  futoncli.db = require('nano')(futoncli.config.get('endpoint'));
+  futoncli.db = require('nano')(endpoint);
+  
+  var parsed_endpoint = url.parse(endpoint);
+  delete parsed_endpoint.href;
+  delete parsed_endpoint.path;
+  delete parsed_endpoint.pathname;
+
+  futoncli.server = require('nano')(url.resolve(parsed_endpoint, ""));
 
   if(!futoncli.db.attachment) {
     // it would be idea to support admin functions too, like creating
