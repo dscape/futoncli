@@ -89,6 +89,61 @@ document.insert = function (name, callback) {
   });
 };
 
+document.update = function () {
+  var updates = [].slice.call(arguments,0);
+  var name = updates.shift();
+  var callback = updates.pop();
+  var parsed_updates = {};
+
+  if(typeof name === "function") {
+    err = new Error("You didn't provide a document name.");
+    return name(err);
+  }
+
+  var db = futoncli.db;
+
+  updates.forEach(function (kv) {
+    if(kv.indexOf("=") !== -1) {
+      kv = kv.split("=");
+      var k = kv[0];
+      var v = kv[1];
+      if(k.indexOf(".") !== -1) {
+        futoncli.log.info("Dot notation is not supported: " + k);
+        return;
+      } else {
+        futoncli.log.warn(k + " will be set to " + v);
+        parsed_updates[k] = v;
+        return;
+      }
+    } else {
+      futoncli.log.info("Invalid update was ignored: " + kv);
+      return;
+    }
+  });
+
+  futoncli.prompt.get(["yesno"], function (err, stdin) {
+    if (err) {
+      callback(err);
+      return futoncli.showError.apply(
+        futoncli, [futoncli.argv._[0]].concat(arguments));
+    }
+    if(stdin.yesno === "yes") {
+      db.get(name, function(err, doc) {
+        if(err) {
+          return callback(err);
+        }
+        for (var k in parsed_updates) {
+          doc[k] = parsed_updates[k];
+        }
+        db.insert(doc, name, helpers.generic_cb(callback));
+      });
+    } else {
+      futoncli.log.info("Aborted by your request");
+      callback();
+    }
+  });
+};
+
 document.usage = [
   '',
   '`futon config *` commands allow you to edit your',
