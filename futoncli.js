@@ -9,19 +9,11 @@ var futoncli = module.exports = new flatiron.App({
   }
 });
 
-require('pkginfo')(module, 'name', 'version');
+futoncli.use(require('flatiron-cli-version'));
 
 futoncli.use(flatiron.plugins.cli, {
   usage: require('./commands/usage'),
   source: path.join(__dirname, 'futoncli', 'commands'),
-  version: true,
-  argv: {
-    version: {
-      alias: 'v',
-      description: 'print futon version and exit',
-      string: true
-    }
-  }
 });
 
 futoncli.started           = false;

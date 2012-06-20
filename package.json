@@ -11,11 +11,11 @@
 , "keywords"        :
   ["couchdb", "data", "request", "json", "nosql", "micro", "nano", "database"]
 , "dependencies"    :
-  { "nano"                : "3.0.x"
-  , "flatiron"            : "0.2.x"
-  , "colors"              : "0.6.x"
-  , "flatiron-cli-config" : "0.1.x"
-  , "pkginfo"             : "0.2.x"
+  { "nano"                 : "3.0.x"
+  , "flatiron"             : "0.2.x"
+  , "colors"               : "0.6.x"
+  , "flatiron-cli-config"  : "0.1.x"
+  , "flatiron-cli-version" : "0.1.x"
   }
 , "devDependencies" :
   { "request"             : "2.9.x"
