@@ -111,7 +111,7 @@ document.update = function () {
         futoncli.log.info("Dot notation is not supported: " + k);
         return;
       } else {
-        futoncli.log.warn(k + " will be set to " + v);
+        futoncli.log.warn(k.blue + " will be set to " + v.yellow);
         parsed_updates[k] = v;
         return;
       }
