@@ -1,3 +1,4 @@
+[![build status](https://secure.travis-ci.org/dscape/futoncli.png)](http://travis-ci.org/dscape/futoncli)
 # futoncli
 
 *futon on your command line*
