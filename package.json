@@ -2,11 +2,12 @@
 , "description"     : "command line futon"
 , "homepage"        : "http://github.com/dscape/futoncli"
 , "repository"      : "git://github.com/dscape/futoncli"
-, "version"         : "0.0.6"
+, "version"         : "0.1.0"
 , "author"          : "Nuno Job <nunojobpinto@gmail.com> (http://nunojob.com)"
 , "contributors"    :
   [ "Joshua Holbrook (http://jesusabdullah.github.com)"
   , "Pavan Sunkara (http://pksunkara.github.com)"
+  , "Julian Duque (https://github.com/julianduque)"
   ]
 , "keywords"        :
   ["couchdb", "data", "request", "json", "nosql", "micro", "nano", "database"]
