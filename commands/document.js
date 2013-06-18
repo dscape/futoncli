@@ -19,6 +19,7 @@ document.list = function () {
   db.list(params, helpers.generic_cb(callback));
 };
 
+document.view =
 document.get = function (name) {
   var err;
 
