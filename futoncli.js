@@ -54,7 +54,7 @@ futoncli.start = function (callback) {
 
     futoncli.welcome();
 
-    var endpoint = futoncli.config.get('endpoint');
+    var endpoint = futoncli.config.get('endpoint') || futoncli.config.get('endpoints:default');
     if (!endpoint) {
       return futoncli.prompt.get(["endpoint"], function (err, stdin) {
         if (err) {
@@ -67,6 +67,7 @@ futoncli.start = function (callback) {
           /^https*:\/\//.test(stdin.endpoint)) {
          var endpoint = stdin.endpoint;
          futoncli.config.set('endpoint', endpoint);
+         futoncli.config.set('endpoints:default', endpoint);
          futoncli.config.save(function (err) {
            if (err) {
              callback(err);
@@ -96,7 +97,7 @@ futoncli.exec = function (command, callback) {
     }
 
     futoncli.log.info('Executing command ' + command.join(' ').magenta);
-    futoncli.router.dispatch('on', command.join(' '), futoncli.log, 
+    futoncli.router.dispatch('on', command.join(' '), futoncli.log,
     function (err, shallow) {
       if (err) {
         callback(err);
@@ -110,7 +111,7 @@ futoncli.exec = function (command, callback) {
   return !futoncli.started ? futoncli.setup(execCommand) : execCommand();
 };
 
-futoncli.setup = function (callback) { 
+futoncli.setup = function (callback) {
   if (futoncli.started === true) {
     return callback();
   }
@@ -118,7 +119,7 @@ futoncli.setup = function (callback) {
   var endpoint = futoncli.config.get('endpoint');
 
   futoncli.db = require('nano')(endpoint);
-  
+
   var parsed_endpoint = url.parse(endpoint);
   delete parsed_endpoint.href;
   delete parsed_endpoint.path;
@@ -132,7 +133,7 @@ futoncli.setup = function (callback) {
     //
     // but this is it for now
     // pull requests are welcome
-    var err = futoncli.db.db 
+    var err = futoncli.db.db
             ? new Error("You CouchDB endpoint doesn't seem to be a db " +
                         endpoint + ". Update your " +
                         " config with futon config set endpoint " +
