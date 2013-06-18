@@ -1,8 +1,5 @@
 var colors = require('colors');
 
-var g = "grey";
-var r = "green";
-
 module.exports = [
   ''
 ].concat(
@@ -23,5 +20,6 @@ module.exports = [
   '  futon document',
   '  futon design',
   '  futon document',
-  '  futon database'
+  '  futon database',
+  '  futon endpoint'
 ]);

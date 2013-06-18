@@ -30,7 +30,7 @@ var defaults = {
   root: process.env.HOME,
   userconfig: '.futoncliconf',
   modes: {
-    exec: 0777 & (~022), 
+    exec: 0777 & (~022),
     file: 0666 & (~022),
     umask: 022
   }
@@ -41,7 +41,7 @@ futoncli.config.defaults(defaults);
 futoncli.use(require('flatiron-cli-config'), {
   store: 'file',
   restricted: [
-    'root', 
+    'root',
     'userconfig'
   ],
   before: {
