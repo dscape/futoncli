@@ -21,7 +21,10 @@
 , "devDependencies" :
   { "request"             : "2.9.x"
   , "picture-tube"        : "0.0.x"
+  , "specify"             : "1.2.x"
+  , "nixt"                : "0.0.x"
   }
+, "scripts"         : { "test": "./node_modules/.bin/specify" }
 , "main"            : "./futoncli.js"
 , "bin"             : { "futon": "./bin/futon" }
 , "engines"         : { "node": ">=0.4.x" }
