@@ -1,9 +1,9 @@
 var specify      = require('specify')
   , helpers      = require('../helpers')
   , run          = helpers.run
-  , futon_ok      = helpers.futon_ok
-  , futon_not_ok   = helpers.futon_not_ok
-  , get_config    = helpers.get_config
+  , futon_ok     = helpers.futon_ok
+  , futon_not_ok = helpers.futon_not_ok
+  , get_config   = helpers.get_config
   ;
 
 helpers.setup();
