@@ -1,6 +1,7 @@
 var path    = require('path')
   , nixt    = require('nixt')
   , util    = require('util')
+  , nano    = require('nano')
   , fs      = require('fs')
   , helpers = exports
   ;
@@ -8,9 +9,9 @@ var path    = require('path')
 var futon_cwd = path.join(__dirname, '..', 'bin');
 var config_path = path.join(__dirname, 'fixtures', '.futoncliconf');
 var base_config = {
-  endpoint: "http://localhost:5984/dbname",
+  endpoint: "http://localhost:5984/test",
   endpoints: {
-    default: "http://localhost:5984/dbname"
+    default: "http://localhost:5984/test"
   },
   userconfig: config_path
 };
@@ -19,6 +20,18 @@ helpers.setup = function setup() {
   if (!fs.existsSync(config_path) || fs.readFileSync(config_path).length === 0) {
     fs.writeFileSync(config_path, JSON.stringify(base_config));
   }
+
+  //
+  // TODO: Mock this
+  //
+  nano("http://localhost:5984").db.create("test", function (err) {
+    if (err) {
+      if (err.status_code != 412 && err.status_code != 200) {
+        console.log("We need a CouchDB server running on localhost to run the tests");
+        process.exit(-1);
+      }
+    }
+  });
 };
 
 helpers.run = function run(cmd) {
