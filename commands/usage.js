@@ -19,7 +19,6 @@ module.exports = [
   '  futon config',
   '  futon document',
   '  futon design',
-  '  futon document',
   '  futon database',
   '  futon endpoint'
 ]);
