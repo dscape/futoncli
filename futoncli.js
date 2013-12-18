@@ -39,6 +39,15 @@ futoncli.prompt.properties = flatiron.common.mixin(
 require('./config');
 require('./aliases');
 
+// Raw mode
+if (futoncli.argv.raw) {
+  futoncli.options.log = {
+    console: {
+      silent: true
+    }
+  };
+}
+
 futoncli.welcome = function () {
   futoncli.log.info('Welcome to ' + 'futon'.grey);
   futoncli.log.info('It worked if it ends with ' + 'futon'.grey + ' ok'.green.bold);
@@ -158,12 +167,16 @@ futoncli.showError = function (command, err, shallow, skip) {
     futoncli.log.error(err.message);
   }
 
-  futoncli.inspect.putObject(err, {
-    password: function (line) {
-      var password = line.match(/password.*\:\s(.*)$/)[1];
-      return line.replace(password, "'********'");
-    }
-  }, 2);
+  if (futoncli.argv.raw) {
+    console.log(JSON.stringify(err, null, 2));
+  } else {
+    futoncli.inspect.putObject(err, {
+      password: function (line) {
+        var password = line.match(/password.*\:\s(.*)$/)[1];
+        return line.replace(password, "'********'");
+      }
+    }, 2);
+  }
 
   futoncli.log.info('futon '.grey + 'not ok'.red.bold);
 };
