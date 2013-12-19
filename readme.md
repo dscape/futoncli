@@ -34,7 +34,9 @@ all configuration data for your local `futoncli` install is located in the *.fut
 
 ## tests
 
-check [issues]. (hint: no tests)
+```
+$ npm test
+```
 
 ## contribute
 
