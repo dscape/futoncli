@@ -1,5 +1,6 @@
 var specify      = require('specify')
   , helpers      = require('../helpers')
+  , fixture      = require('../fixtures/test_doc.json')
   , run          = helpers.run
   , futon_ok     = helpers.futon_ok
   , futon_not_ok = helpers.futon_not_ok
@@ -69,6 +70,23 @@ specify("futon document get tdoc", function (assert) {
     assert.ok(true);
   });
 });
+
+specify("futon document get tdoc --raw", function (assert) {
+  assert.expect(4);
+
+  run("futon document get tdoc --raw")
+  .expect(function (response) {
+    futon_ok(assert, response);
+    var doc = JSON.parse(response.stdout);
+    fixture._id = 'tdoc';
+    fixture._rev = rev;
+    assert.deepEqual(doc, fixture);
+  })
+  .end(function () {
+    assert.ok(true);
+  });
+});
+
 
 specify("futon document destroy", function (assert) {
   assert.expect(3);
