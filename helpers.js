@@ -27,16 +27,21 @@ helpers.parse_args = function (args, require_cb) {
 
 helpers.generic_cb = function (callback) {
   return function (err, body) {
-    if(err) {
+    if (err) {
       return callback(err);
     }
-    // iterating and showing names would be better
-    futoncli.inspect.putObject(body, {
-      password: function (line) {
-        var password = line.match(/password.*\:\s(.*)$/)[1];
-        return line.replace(password, "'********'");
-      }
-    }, 2);
+
+    if (futoncli.argv.raw) {
+      console.log(JSON.stringify(body, null, 2));
+    } else {
+      // iterating and showing names would be better
+      futoncli.inspect.putObject(body, {
+        password: function (line) {
+          var password = line.match(/password.*\:\s(.*)$/)[1];
+          return line.replace(password, "'********'");
+        }
+      }, 2);
+    }
     callback();
   };
 };
