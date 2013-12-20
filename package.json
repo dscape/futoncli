@@ -2,7 +2,7 @@
 , "description"     : "command line futon"
 , "homepage"        : "http://github.com/dscape/futoncli"
 , "repository"      : "git://github.com/dscape/futoncli"
-, "version"         : "0.1.0"
+, "version"         : "0.1.1"
 , "author"          : "Nuno Job <nunojobpinto@gmail.com> (http://nunojob.com)"
 , "contributors"    :
   [ "Joshua Holbrook (http://jesusabdullah.github.com)"
