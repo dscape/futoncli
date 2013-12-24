@@ -66,7 +66,10 @@ document.insert = function (name, callback) {
     name = null;
   }
 
-  if (!process.stdin.isTTY) {
+  // Tests are failing because a spawn node process, the stdin.isTTY is always
+  // undefined, I'm using the --test flag when running tests to avoid the
+  // conflict with nixt.
+  if (!process.stdin.isTTY && !futoncli.argv.test) {
     process.stdin.pipe(concat(function (body) {
       return insert(body, name, callback);
     }));

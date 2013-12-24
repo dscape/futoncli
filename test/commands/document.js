@@ -7,7 +7,7 @@ var specify      = require('specify')
   , futon_not_ok = helpers.futon_not_ok
   , get_config   = helpers.get_config
   , config_path  = helpers.config_path
-  , rev
+  , rev, rev2
   ;
 
 helpers.setup();
@@ -39,9 +39,8 @@ specify("futon document list", function (assert) {
 specify("futon document insert tdoc --file test/fixtures/test_doc.json", function (assert) {
   assert.expect(3);
 
-  run("futon document insert tdoc --file ../test/fixtures/test_doc.json")
+  run("futon document insert tdoc --file ../test/fixtures/test_doc.json --test")
   .expect(function (response) {
-    console.log(response);
     futon_ok(assert, response);
   })
   .end(function () {
@@ -55,7 +54,6 @@ specify("cat test_doc.json | futon document insert tdocpipe", function (assert) 
   nixt()
   .run("cat ../test/fixtures/test_doc.json | ./futon document insert tdocpipe -q " + config_path)
   .expect(function (response) {
-    console.log(response);
     futon_ok(assert, response);
   })
   .end(function () {
@@ -82,6 +80,19 @@ specify("futon document get tdoc", function (assert) {
   .expect(function (response) {
     futon_ok(assert, response);
     rev = response.stdout.match("_rev: \\'(.*)\\'")[1];
+  })
+  .end(function () {
+    assert.ok(true);
+  });
+});
+
+specify("futon document get tdocpipe", function (assert) {
+  assert.expect(3);
+
+  run("futon document get tdocpipe")
+  .expect(function (response) {
+    futon_ok(assert, response);
+    rev2 = response.stdout.match("_rev: \\'(.*)\\'")[1];
   })
   .end(function () {
     assert.ok(true);
@@ -120,6 +131,17 @@ specify("futon document destroy", function (assert) {
 specify("futon document destroy tdoc", function (assert) {
   assert.expect(3);
   run("futon document destroy tdoc " + rev)
+  .expect(function (response) {
+    futon_ok(assert, response);
+  })
+  .end(function () {
+    assert.ok(true);
+  });
+});
+
+specify("futon document destroy tdocpipe", function (assert) {
+  assert.expect(3);
+  run("futon document destroy tdocpipe " + rev2)
   .expect(function (response) {
     futon_ok(assert, response);
   })
