@@ -1,6 +1,7 @@
 var path = require('path'),
     nano = require('nano'),
     url = require('url'),
+    colors = require('colors'),
     flatiron = require('flatiron');
 
 var futoncli = module.exports = new flatiron.App({
@@ -12,12 +13,15 @@ var futoncli = module.exports = new flatiron.App({
 futoncli.use(require('flatiron-cli-version'));
 
 futoncli.use(flatiron.plugins.cli, {
-  usage: require('./commands/usage'),
   source: path.join(__dirname, 'futoncli', 'commands'),
+  argv: require('./commands/options')
 });
+
+(typeof futoncli.argv.colors === 'undefined' || futoncli.argv.colors) || (colors.mode = 'none');
 
 futoncli.started           = false;
 futoncli.commands          = require('./commands');
+futoncli.usage             = require('./commands/usage');
 futoncli.prompt.override   = futoncli.argv;
 futoncli.prompt.properties = flatiron.common.mixin(
   futoncli.prompt.properties,
