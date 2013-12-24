@@ -2,9 +2,11 @@ var specify      = require('specify')
   , helpers      = require('../helpers')
   , fixture      = require('../fixtures/test_doc.json')
   , run          = helpers.run
+  , nixt         = helpers.nixt
   , futon_ok     = helpers.futon_ok
   , futon_not_ok = helpers.futon_not_ok
   , get_config   = helpers.get_config
+  , config_path  = helpers.config_path
   , rev
   ;
 
@@ -39,6 +41,21 @@ specify("futon document insert tdoc --file test/fixtures/test_doc.json", functio
 
   run("futon document insert tdoc --file ../test/fixtures/test_doc.json")
   .expect(function (response) {
+    console.log(response);
+    futon_ok(assert, response);
+  })
+  .end(function () {
+    assert.ok(true);
+  });
+});
+
+specify("cat test_doc.json | futon document insert tdocpipe", function (assert) {
+  assert.expect(3);
+
+  nixt()
+  .run("cat ../test/fixtures/test_doc.json | ./futon document insert tdocpipe -q " + config_path)
+  .expect(function (response) {
+    console.log(response);
     futon_ok(assert, response);
   })
   .end(function () {
