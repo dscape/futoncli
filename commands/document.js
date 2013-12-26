@@ -170,7 +170,8 @@ document.usage = [
   'local futon configuration file. Valid commands are:',
   '',
   'futon document list <arg1=val1> <arg2=val2> ...',
-  'futon document get <docname> <arg1=val1> <arg2=val2> ...',
   'futon document destroy <docname> <rev>',
-  'futon document insert <docname>'
+  'futon document get <docname> <arg1=val1> <arg2=val2> ...',
+  'futon document insert <docname>',
+  'futon document update <docname> <arg1=val1> <arg2=val2> ...'
 ];
