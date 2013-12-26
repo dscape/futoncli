@@ -16,6 +16,8 @@ var base_config = {
   userconfig: config_path
 };
 
+helpers.config_path = config_path;
+
 helpers.setup = function setup() {
   if (!fs.existsSync(config_path) || fs.readFileSync(config_path).length === 0) {
     fs.writeFileSync(config_path, JSON.stringify(base_config));
@@ -39,6 +41,11 @@ helpers.run = function run(cmd) {
   return nixt({ colors: false })
          .cwd(futon_cwd)
          .run(command);
+};
+
+helpers.nixt = function () {
+  return nixt({ colors: false })
+         .cwd(futon_cwd);
 };
 
 helpers.get_config = function () {

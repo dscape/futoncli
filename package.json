@@ -15,6 +15,7 @@
   { "nano"                 : "3.0.x"
   , "flatiron"             : "0.3.x"
   , "colors"               : "0.6.x"
+  , "concat-stream"        : "1.2.x"
   , "flatiron-cli-config"  : "0.1.x"
   , "flatiron-cli-version" : "0.1.x"
   }

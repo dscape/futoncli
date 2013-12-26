@@ -1,5 +1,6 @@
 var fs = require('fs');
 var path = require('path');
+var concat = require('concat-stream');
 var futoncli = require('../futoncli');
 var helpers = require('../helpers');
 
@@ -65,28 +66,47 @@ document.insert = function (name, callback) {
     name = null;
   }
 
-  var db = futoncli.db;
+  // Tests were failing because in a spawn node process, the stdin.isTTY is always
+  // undefined, so I'm using the --test flag when running tests to avoid the
+  // conflict with nixt.
+  if (!process.stdin.isTTY && !futoncli.argv.test) {
+    process.stdin.pipe(concat(function (body) {
+      return insert(body, name, callback);
+    }));
+    process.stdin.resume();
+  } else {
+    return promptFile();
+  }
 
-  futoncli.prompt.get("file", function (err, input) {
-    if(err) {
-      return callback(err);
-    }
-    fs.readFile(input.file, function (err, body) {
+  function promptFile() {
+    futoncli.prompt.get("file", function (err, input) {
       if(err) {
         return callback(err);
       }
-      try {
-        body = JSON.parse(body);
-        if(name) {
-          db.insert(body, name, helpers.generic_cb(callback));
-        } else {
-          db.insert(body, helpers.generic_cb(callback));
+      fs.readFile(input.file, function (err, body) {
+        if(err) {
+          return callback(err);
         }
-      } catch (err2) {
-        return callback(err2);
-      }
+
+        return insert(body, name, callback);
+       });
     });
-  });
+  }
+
+  function insert(body, name, callback) {
+    var db = futoncli.db;
+
+    try {
+      body = JSON.parse(body);
+      if(name) {
+        db.insert(body, name, helpers.generic_cb(callback));
+      } else {
+        db.insert(body, helpers.generic_cb(callback));
+      }
+    } catch (err2) {
+      return callback(err2);
+    }
+  }
 };
 
 document.update = function () {
