@@ -65,7 +65,7 @@ to run tests make sure you npm test but also run tests without mocks:
 
 ## license
 
-copyright 2011 nuno job <nunojob.com> (oo)--',--
+copyright 2011 nuno job <nunojob.com>, julian duque <@julianduque>, and contributors (oo)--',--
 
 licensed under the apache license, version 2.0 (the "license");
 you may not use this file except in compliance with the license.
