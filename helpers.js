@@ -31,7 +31,7 @@ helpers.generic_cb = function (callback) {
       return callback(err);
     }
 
-    if (futoncli.argv.raw) {
+    if (futoncli.argv.raw || futoncli.config.get("raw")) {
       console.log(JSON.stringify(body, null, 2));
     } else {
       // iterating and showing names would be better

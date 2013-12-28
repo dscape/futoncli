@@ -29,6 +29,7 @@ var defaults = {
   loglength: 110,
   root: process.env.HOME,
   userconfig: '.futoncliconf',
+  raw: false,
   modes: {
     exec: 0777 & (~022),
     file: 0666 & (~022),

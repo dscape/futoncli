@@ -44,7 +44,8 @@ require('./config');
 require('./aliases');
 
 // Raw mode
-if (futoncli.argv.raw) {
+var raw = futoncli.argv.raw || futoncli.config.get("raw");
+if (raw) {
   futoncli.options.log = {
     console: {
       silent: true
@@ -171,7 +172,7 @@ futoncli.showError = function (command, err, shallow, skip) {
     futoncli.log.error(err.message);
   }
 
-  if (futoncli.argv.raw) {
+  if (raw) {
     console.log(JSON.stringify(err, null, 2));
   } else {
     futoncli.inspect.putObject(err, {
