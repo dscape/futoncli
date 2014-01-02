@@ -25,7 +25,7 @@
   , "specify"             : "1.2.x"
   , "nixt"                : "0.0.x"
   }
-, "scripts"         : { "test": "./node_modules/.bin/specify" }
+, "scripts"         : { "test": "./node_modules/.bin/specify -r compact" }
 , "main"            : "./futoncli.js"
 , "bin"             : { "futon": "./bin/futon" }
 , "engines"         : { "node": ">=0.4.x" }
