@@ -32,6 +32,19 @@ all configuration data for your local `futoncli` install is located in the *.fut
 
     futon config
 
+#### TypeError: Arguments to path.join must be strings
+
+to get `futoncli` working it needs the `HOME` environment variable. if you want to change it before execution do this:
+
+    HOME=path/to/home/directory futon
+
+if you're using windows set the variable before calling `foutoncli`:
+
+    SET HOME=C:\Path\To\Home\Directory
+    futon
+    
+or to set it permanently add a new environment variable.
+
 ## tests
 
 ```
